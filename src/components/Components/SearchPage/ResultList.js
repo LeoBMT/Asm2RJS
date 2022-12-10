@@ -11,14 +11,15 @@ const ResultList = (props) => {
   const request = `/search/movie?api_key=${API_KEY}&language=en-US&query=${props.query}`;
 
   // Lấy dữ liệu
-  const { isLoading, error, sendRequest: fetchMovie } = useHttp();
+  const { error, sendRequest: fetchMovie } = useHttp();
 
   useEffect(() => {
+    setIsClickMovie(false);
     const getMovie = (data) => {
       setData(data.results);
     };
     fetchMovie({ url: request }, getMovie);
-  }, [fetchMovie]);
+  }, [request]);
 
   // Sự kiện khi click movie
   const onClickMovieHandler = (event) => {

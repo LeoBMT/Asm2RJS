@@ -1,5 +1,4 @@
 import { useState } from "react";
-import useHttp from "../../hooks/use-http";
 import Movie from "./Movie";
 import MovieDetail from "./MovieDetail";
 import classes from "./MovieList.module.css";

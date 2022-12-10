@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import useHttp from "../../hooks/use-http";
 import { useHorizontalScroll } from "../../hooks/use-scroll";
 import classes from "./Movie.module.css";
-import MovieDetail from "./MovieDetail";
 
 const Movie = (props) => {
   const [data, setData] = useState([]);
@@ -11,14 +10,13 @@ const Movie = (props) => {
   const [isClickMovie, setIsClickMovie] = useState(false);
 
   // Lấy dữ liệu API
-  const { isLoading, error, sendRequest: fetchMovie } = useHttp();
+  const { error, sendRequest: fetchMovie } = useHttp();
   useEffect(() => {
     const getMovie = (data) => {
       setData(data.results);
     };
     fetchMovie({ url: props.path }, getMovie);
-  }, [fetchMovie]);
-
+  }, []);
   // Sự kiện khi click vào movie
   const onClickMovieHandler = (event) => {
     const index = data.findIndex((e) => e.id === +event.target.id);
