@@ -3,8 +3,8 @@
   display: flex;
   flex-wrap: nowrap;
   gap: 0.5rem;
-  overflow-y: visible;
-  overflow-x: hidden;
+  overflow-y: hidden;
+  overflow-x: scroll;
 }
 
 .imgposter {

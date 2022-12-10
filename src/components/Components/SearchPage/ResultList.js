@@ -10,7 +10,8 @@ const ResultList = (props) => {
   const [isClickMovie, setIsClickMovie] = useState(false);
   const request = `/search/movie?api_key=${API_KEY}&language=en-US&query=${props.query}`;
 
-  const { error, sendRequest: fetchMovie } = useHttp();
+  // Lấy dữ liệu
+  const { isLoading, error, sendRequest: fetchMovie } = useHttp();
 
   useEffect(() => {
     const getMovie = (data) => {
@@ -19,6 +20,7 @@ const ResultList = (props) => {
     fetchMovie({ url: request }, getMovie);
   }, [fetchMovie]);
 
+  // Sự kiện khi click movie
   const onClickMovieHandler = (event) => {
     const index = data.findIndex((e) => e.id === +event.target.id);
     if (+event.target.id === clickedMovie.id && isClickMovie) {

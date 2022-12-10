@@ -7,6 +7,7 @@ const Banner = () => {
   const [data, setData] = useState({ backdrop_path: "" });
   const request = `/discover/tv?api_key=${API_KEY}&with_network=123`;
 
+  // Lấy dữ liệu API
   const { isLoading, error, sendRequest: fetchMovie } = useHttp();
 
   useEffect(() => {
@@ -21,6 +22,7 @@ const Banner = () => {
   return (
     <div className={classes.banner}>
       <img
+        // Kiểm tra đường dẫn backdrop có không, nếu không đổi sang poster
         src={`${
           data.backdrop_path
             ? `https://image.tmdb.org/t/p/original${data.backdrop_path}`

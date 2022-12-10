@@ -20,6 +20,7 @@ const MovieList = () => {
     fetchDocumentaries: `/discover/movie?api_key=${API_KEY}&with_genres=99`,
   };
 
+  // Nhập tham số từ sự kiện click movie
   const onClickHandler = (movie, isClicked) => {
     setClickedMovie(movie);
     setIsClickMovie(isClicked);
@@ -46,7 +47,11 @@ const MovieList = () => {
       <Movie path={requests.fetchRomanceMovies} onClicked={onClickHandler} />
       <h3>Tài liệu</h3>
       <Movie path={requests.fetchDocumentaries} onClicked={onClickHandler} />
-      {isClickMovie ? <MovieDetail movie={clickedMovie} /> : ""}
+
+      {
+        // Kiểm tra trạng thái hiển thị movie detail
+        isClickMovie ? <MovieDetail movie={clickedMovie} /> : ""
+      }
     </div>
   );
 };

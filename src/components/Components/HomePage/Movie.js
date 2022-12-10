@@ -6,13 +6,12 @@ import classes from "./Movie.module.css";
 import MovieDetail from "./MovieDetail";
 
 const Movie = (props) => {
-  const scrollRef = useHorizontalScroll();
   const [data, setData] = useState([]);
   const [clickedMovie, setClickedMovie] = useState("");
   const [isClickMovie, setIsClickMovie] = useState(false);
 
+  // Lấy dữ liệu API
   const { isLoading, error, sendRequest: fetchMovie } = useHttp();
-
   useEffect(() => {
     const getMovie = (data) => {
       setData(data.results);
@@ -20,6 +19,7 @@ const Movie = (props) => {
     fetchMovie({ url: props.path }, getMovie);
   }, [fetchMovie]);
 
+  // Sự kiện khi click vào movie
   const onClickMovieHandler = (event) => {
     const index = data.findIndex((e) => e.id === +event.target.id);
     if (+event.target.id === clickedMovie.id && isClickMovie) {
@@ -33,36 +33,37 @@ const Movie = (props) => {
     }
   };
 
+  // Cuộn ngang khi lăn chuột
+  const scrollRef = useHorizontalScroll();
+
   return (
-    <div>
-      <div className={classes.movie} ref={scrollRef}>
-        {data.map((movie) => (
-          <img
-            onClick={onClickMovieHandler}
-            key={movie.id}
-            id={movie.id}
-            src={`${
-              props.showType === "poster"
-                ? movie.poster_path
-                  ? `https://image.tmdb.org/t/p/original${movie.poster_path}`
-                  : movie.backdrop_path
-                  ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}`
-                  : ""
+    <div className={classes.movie} ref={scrollRef}>
+      {data.map((movie) => (
+        <img
+          onClick={onClickMovieHandler}
+          key={movie.id}
+          id={movie.id}
+          src={`${
+            props.showType === "poster"
+              ? movie.poster_path
+                ? `https://image.tmdb.org/t/p/original${movie.poster_path}`
                 : movie.backdrop_path
                 ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}`
-                : movie.poster_path
-                ? `https://image.tmdb.org/t/p/original${movie.poster_path}`
                 : ""
-            }`}
-            alt=""
-            className={
-              props.showType === "poster"
-                ? classes.imgposter
-                : classes.imgbackdrop
-            }
-          ></img>
-        ))}
-      </div>
+              : movie.backdrop_path
+              ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}`
+              : movie.poster_path
+              ? `https://image.tmdb.org/t/p/original${movie.poster_path}`
+              : ""
+          }`}
+          alt=""
+          className={
+            props.showType === "poster"
+              ? classes.imgposter
+              : classes.imgbackdrop
+          }
+        ></img>
+      ))}
     </div>
   );
 };

@@ -7,6 +7,7 @@ const SearchForm = () => {
   const [isValid, setIsValid] = useState(true);
   const [result, setResult] = useState(<h2>Search Result</h2>);
 
+  // Kiểm tra valid input
   const inputChangeHandler = (event) => {
     if (event.target.value.trim().length > 0) {
       setIsValid(true);
@@ -14,6 +15,7 @@ const SearchForm = () => {
     setInput(event.target.value);
   };
 
+  // Sự kiện click search
   const submitHandler = (event) => {
     event.preventDefault();
     if (input.trim().length === 0) {
@@ -23,11 +25,13 @@ const SearchForm = () => {
     setResult(<ResultList query={input} />);
   };
 
+  // Sự kiện click reset
   const resetHandler = () => {
     setIsValid(true);
     setInput("");
     setResult(<h2>Search Result</h2>);
   };
+
   return (
     <div className={classes.search}>
       <form

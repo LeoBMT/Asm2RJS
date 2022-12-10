@@ -2,16 +2,19 @@ import { useEffect, useState } from "react";
 import classes from "./Navbar.module.css";
 
 const Navbar = () => {
+  // Sự kiện click logo home
   const onClickHomeHandler = () => {
     window.location.replace("/");
   };
 
+  // Sự kiện click icon search
   const onClickSearchHandler = () => {
     window.location.replace("/search");
   };
 
   const [backgroundNavbar, setBackgroundNavbar] = useState(true);
 
+  //Kéo xuống quá 100xp background đổi thành màu đen
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -21,7 +24,7 @@ const Navbar = () => {
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [backgroundNavbar]);
+  }, []);
 
   return (
     <div

@@ -7,8 +7,9 @@ const MovieDetail = (props) => {
   const API_KEY = "e64d8c841a5c33f0c728a299182ef201";
   const [data, setData] = useState([]);
   const request = `/movie/${props.movie.id}/videos?api_key=${API_KEY}`;
-  const { error, sendRequest: fetchMovie } = useHttp();
 
+  // Lấy dữ liệu
+  const { isLoading, error, sendRequest: fetchMovie } = useHttp();
   useEffect(() => {
     const getMovie = (data) => {
       setData(data.results);
@@ -16,6 +17,7 @@ const MovieDetail = (props) => {
     fetchMovie({ url: request }, getMovie);
   }, [fetchMovie]);
 
+  // Nếu không có trailer thì hiện thì ảnh
   let trailer = (
     <img
       src={`${
@@ -28,6 +30,10 @@ const MovieDetail = (props) => {
       alt=""
     ></img>
   );
+
+  // Kiểm tra có video trailer không
+  // TODO: Khi nhấn trực tiếp sang movie khác thì data không thay đổi
+  //       Sử dụng state thì có lỗi re render quá nhiều lần
   if (data.length !== 0) {
     for (const e of data) {
       if (e.site === "YouTube" && (e.type === "Teaser" || e.type === "Trailer"))
@@ -40,6 +46,7 @@ const MovieDetail = (props) => {
         );
     }
   }
+
   return (
     <div className={classes.moviedetail}>
       <div>
